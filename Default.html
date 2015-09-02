@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JSON Service</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var jsonList = "http://devservices.mparkdashboard.com/getallvehiclemodel?vehicleMakeId=1";
+            $.getJSON(jsonList, function (data) {
+                var listItems = "";
+                var counter = 0;
+                for (var i = 0; i < data.vehicleModel.length; i++) {
+
+                    listItems += "<option value='" + data.vehicleModel[i].id + "'>" + data.vehicleModel[i].description + "</option>";
+                }
+
+                $("#DLState").html(listItems);
+                counter = data.vehicleModel.length;
+                document.getElementById("dvCounter").innerHTML = counter;
+            });
+
+        });
+    </script>
+
+    <!--<script type="text/javascript">
+        $(document).ready(function (e) {
+            $.ajax({
+                url: "http://devservices.mparkdashboard.com/getallvehiclemodel?vehicleMakeId=1",
+                processData: false,
+                dataType: "json",
+                type: 'POST',
+                cache: false,
+                //success: function (data, textStatus, jqXHR) {
+                success:function(data,textStatus,jqXHR){
+                    // $.each(data.vehicleModel, function (i, vehicleModels) {
+                    $.each(data.vehicleModel, function(i,vehicleModels){
+                        $("#list").append('<option value="' + vehicleModels.id + '">' + vehicleModels.description + '</option>');
+                    });
+                }
+            });
+        });
+    </script>-->
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            var a = "http://devservices.mparkdashboard.com/getallvehiclemodel?vehicleMakeId=1";
+            $.getJSON(a, function (obj) {
+                $.each(obj.vehicleModel, function (key, value) {
+                    //$("#list").append($('<option></option>').val(value.id).html(value.description));
+                    $("#list").append('<option value="' + value.id + '">' + value.description + '</option>');
+
+                });
+            });
+
+            $("#list").change(function () {
+                var aa = $(this).val();
+                var aa1 = $("#list option:selected").text();
+                alert("Selected Value :"+ aa +" AND Selected Text : "+aa1);
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        (function ($) {
+            function processForm(e) {
+                $.ajax({
+                    url: 'UserTest.html',
+                    dataType: 'text',
+                    type: 'post',
+                    contentType: 'application/x-www-form-urlencoded',
+                    data: $(this).serialize(),
+                    success: function (data, textStatus, jQxhr) {
+                        $('#response pre').html(data);
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+
+                e.preventDefault();
+            }
+
+            $('#my-form').submit(processForm);
+        })(jQuery);
+</script>
+
+</head>
+<body>
+    <select id="DLState"></select>
+    <select id="list"></select>
+
+    <div id="placeholder"></div>
+
+    <div id="placeholder1" style="color:Red;"></div>
+    <div id="dvCounter" style="color:green;"></div>
+
+    <script>
+        var jSonFile = "http://devservices.mparkdashboard.com/getallcountries";
+        $.getJSON(jSonFile, function (data) {
+            var output = "<ul>";
+            for (var i in data.countries) {
+                output += "<li>CountryId :" + data.countries[i].countryId + "<br>Country Name : " + data.countries[i].name
+                + "<br>Prifix : " + data.countries[i].prefix + "<br>nameHindi :" + data.countries[i].nameHindi + "" + data.countries[i].nameHindi + "</li>";
+            }
+
+            output += "</ul>";
+            document.getElementById("placeholder").innerHTML = output;
+        });
+    </script>
+   
+    <script type="text/javascript">
+        var jsonFile = "http://devservices.mparkdashboard.com/getallvehiclemodel?vehicleMakeId=1";
+        $.getJSON(jsonFile, function (data) {
+            var outPut1 = "<ul>";
+            for (var i in data.vehicleModel) {
+                outPut1 += "<li>ID :" + data.vehicleModel[i].id + "<br>";
+                outPut1 += "vehicleMakeId : " + data.vehicleModel[i].vehicleMakeId + "<br>";
+                outPut1 += "description : " + data.vehicleModel[i].description + "<br>";
+                outPut1 += "descriptionH :" + data.vehicleModel[i].descriptionH + "</li>";
+            }
+            outPut1 += "</ul>";
+            document.getElementById("placeholder1").innerHTML = outPut1;
+        });
+    </script> 
+   <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '123293088019659', status: true, cookie: true,
+                xfbml: true
+            });
+        };
+        (function () {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol +
+            '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+        }());
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#share_button').click(function (e) {
+                e.preventDefault();
+                FB.ui(
+                {
+                    method: 'feed',
+                    name: 'IAFS Forums',
+                    link: 'http://iafs.in/home.php',
+                    picture: 'http://iafs.in/images/logo-unit.jpg',
+                    caption: 'Welcome to the India-Africa Forum Summit 2015',
+                    description: 'The India-Africa Forum Summit (IAFS) is a celebration of the close partnership between Africa and India. It is an acknowledgement of our shared history as well as our future prospects. From our struggle against colonialism and apartheid, we have emerged to jointly accept the challenges of a globalizing world. Even as we combat with common threats - the threat from international terrorism; the scourge of poverty, disease, illiteracy and hunger; the challenge of climate change - and collectively promote the socio-economic advancement of all our people, we believe that India and Africa traverse the same path, share the same values and cherish the same dreams.',
+                    message: ''
+                });
+            });
+        });
+    </script>
+    <a href="#" id="share_button"><i class="fa fa-facebook"></i>&nbsp;Share SOS</a>
+
+
+   <!-- <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '123293088019659',
+                xfbml: true,
+                version: 'v2.4'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+</script>
+    <div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>-->
+
+</body>
+</html>

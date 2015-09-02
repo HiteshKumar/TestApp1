@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <style type="text/css">
+        .morecontent span {
+    display: none;
+}
+.morelink {
+    display: block;
+}
+
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnCall').click(function (e) {    
+                e.preventDefault();
+                $('#Div1').hide();
+                $('#Div2').slideDown(2000, function () {
+                    $('#btnCall').hide();
+                    $('#btnClose').show()
+                });
+            });
+            $('#btnClose').click(function (e) {
+                e.preventDefault();                
+                $('#Div2').slideUp(2000, function () {                  
+                    $('#btnClose').hide()
+                    $('#btnCall').show();
+                    $('#Div1').show();
+                });
+            });
+         });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Configure/customize these variables.
+            var showChar = 100; // How many characters are shown by default
+            var ellipsestext = "...";
+            var moretext = "Show more >";
+            var lesstext = "Show less";
+
+
+            $('.more').each(function () {
+                var content = $(this).html();
+
+                if (content.length > showChar) {
+
+                    var c = content.substr(0, showChar);
+                    var h = content.substr(showChar, content.length - showChar);
+
+                    var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+                    $(this).html(html);
+                }
+
+            });
+
+            $(".morelink").click(function () {
+                if ($(this).hasClass("less")) {
+                    $(this).removeClass("less");
+                    $(this).html(moretext);
+                } else {
+                    $(this).addClass("less");
+                    $(this).html(lesstext);
+                }
+                $(this).parent().prev().toggle(1000);
+                $(this).prev().toggle(1000);
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+
+
+    <div id="myDivContent" style="display: block; border: solid red 1px; width: 250px;">
+        <div id="Div1" style="display: block; border: solid red 1px; width: 250px;">
+            This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+        This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+        </div>
+        <div style="text-align:end; float:right;"><input type="button" id="btnCall" value="more..." /><input type="button" id="btnClose" style="display:none;" value="Close" /> </div>
+        <div id="Div2" style="display: none; border: solid green 1px; width: 250px;">
+            This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+        This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+              This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+        This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+              This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+        This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+              This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+        This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+              This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+        This is testing app. This is testing app. This is testing app. This is testing app. This is testing app. 
+        </div>
+        <div id="Div3" style="display: inline-block; border: solid red 1px; width: 250px; height: 100px;">
+            <img src="Img/1.jpg" width="70" height="90" style="margin: 2px;" />
+            <img src="Img/2.jpg" width="70" height="90" style="margin: 2px;" />
+            <img src="Img/3.jpg" width="70" height="90" style="margin: 2px;" />
+        </div>
+    </div>
+
+    <hr />
+    <div>
+
+         <span class="more">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </span>
+    <br><br>
+    <div class="more">
+      Morbi placerat imperdiet risus quis blandit. Ut lobortis elit luctus, feugiat erat vitae, interdum diam. Nam sit amet arcu vitae justo lacinia ultricies nec eget tellus. Curabitur id sapien massa. In hac <a href="#">habitasse</a> platea dictumst. Integer tristique leo consectetur libero pretium pretium. Nunc sed mauris magna. Praesent varius purus id turpis iaculis iaculis. Nulla <em>convallis magna nunc</em>, id rhoncus massa ornare in. Donec et feugiat sem, ac rhoncus mauris. Quisque eget tempor massa.
+    </div>
+
+    </div>
+
+    <script>
+        // This is called with the results from from FB.getLoginStatus().
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                testAPI();
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not your app.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                  'into this app.';
+            } else {
+                // The person is not logged into Facebook, so we're not sure if
+                // they are logged into this app or not.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                  'into Facebook.';
+            }
+        }
+
+        // This function is called when someone finishes with the Login
+        // Button.  See the onlogin handler attached to it in the sample
+        // code below.
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '{your-app-id}',
+                cookie: true,  // enable cookies to allow the server to access 
+                // the session
+                xfbml: true,  // parse social plugins on this page
+                version: 'v2.2' // use version 2.2
+            });
+
+            // Now that we've initialized the JavaScript SDK, we call 
+            // FB.getLoginStatus().  This function gets the state of the
+            // person visiting this page and can return one of three states to
+            // the callback you provide.  They can be:
+            //
+            // 1. Logged into your app ('connected')
+            // 2. Logged into Facebook, but not your app ('not_authorized')
+            // 3. Not logged into Facebook and can't tell if they are logged into
+            //    your app or not.
+            //
+            // These three cases are handled in the callback function.
+
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+
+        };
+
+        // Load the SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // Here we run a very simple test of the Graph API after login is
+        // successful.  See statusChangeCallback() for when this call is made.
+        function testAPI() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function (response) {
+                console.log('Successful login for: ' + response.name);
+                document.getElementById('status').innerHTML =
+                  'Thanks for logging in, ' + response.name + '!';
+            });
+        }
+</script>
+
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JSON with Jquery</title>   
+</head>
+<body>
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      
+            var jsonList = "http://devservices.mparkdashboard.com/getallvehiclemodel?vehicleMakeId=1";
+           /* $.getJSON(jsonList, function (data) {
+                console.log(data);
+            });
+            */
+
+            $.ajax({
+                url: jsonList,
+                datatype: 'json',
+                type: 'get',
+                cache: false,
+                success: function (data) {
+                    $(data.vehicleModel).each(function (index, value) {
+                        console.log(value.description);
+                    });
+                }
+            });
+       
+            
+    </script>
+</body>
+</html>

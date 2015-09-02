@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    (function ($) {
+        function processForm(e) {
+            $.ajax({
+                url: 'UserTest.html',
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    $('#response pre').html(data);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+
+            e.preventDefault();        
+        }
+
+        $('#my-form').submit(processForm);
+    })(jQuery);
+</script>
+
+</head>
+<body>
+    <div id="response">
+    <pre></pre>
+</div>
+
+<form id="my-form">
+    <input type="text" id="first-name" name="first-name" placeholder="First Name" />
+    <input type="text" id="last-name" name="last-name" placeholder="Last Name" />
+    <button type="submit">Submit</button>
+
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1483530248623780',
+                xfbml: true,
+                version: 'v2.4'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+</script>
+   <!-- <script type="text/javascript">
+        $(document).ready(function () {
+            $('#share_button').click(function (e) {
+                e.preventDefault();
+                FB.ui(
+                {
+                    method: 'feed',
+                    name: 'IAFS',
+                    link: 'http://iafs.in/home.php',
+                    picture: 'http://iafs.in/images/logo-unit.jpg',
+                    caption: 'Welcome to the India-Africa Forum Summit 2015',
+                    description: 'The India-Africa Forum Summit (IAFS) is a celebration of the close partnership between Africa and India. It is an acknowledgement of our shared history as well as our future prospects. From our struggle against colonialism and apartheid, we have emerged to jointly accept the challenges of a globalizing world. Even as we combat with common threats - the threat from international terrorism; the scourge of poverty, disease, illiteracy and hunger; the challenge of climate change - and collectively promote the socio-economic advancement of all our people, we believe that India and Africa traverse the same path, share the same values and cherish the same dreams.',
+                    message: ''
+                });
+            });
+        });
+    </script>-->
+    <div
+  class="fb-like "
+  data-share="true"
+  data-width="450"
+  data-show-faces="true" data-check="true" 
+  >
+</div>
+</form>
+
+</body>
+</html>
